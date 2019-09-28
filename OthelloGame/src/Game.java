@@ -26,8 +26,33 @@ public class Game
 		}
 		
 		Board gameBoard = new Board(myColor);
-		gameBoard.generateMoves();
 		
+		if(myColor.equals("Black"))
+		{
+			currentPlayer = ME;
+		}
+		else
+		{
+			currentPlayer = OPPONENT;
+		}
+		
+		Move move;
+		while(!gameBoard.gameOver())
+		{
+			if(currentPlayer == ME)
+			{
+				move = gameBoard.chooseMove(gameBoard.generateMoves());
+				System.out.print(myColor.charAt(0)+" "+move.toString());
+			}
+			else
+			{
+				String str = scan.next();
+				move = gameBoard.getOpponentMove(str);
+			}
+			gameBoard.applyMove(currentPlayer, move);
+			gameBoard.printBoard(myColor);
+			currentPlayer = -1*currentPlayer;
+		}
 	}
 
 }
